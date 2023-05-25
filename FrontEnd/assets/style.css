@@ -137,13 +137,23 @@ li:hover {
 .btn-filtre {
 	font-family: 'Syne';
 	font-weight: 700;
+	color: #1D6154;
+	background-color: white;
+	text-align: center;
+	border-radius: 60px ;
+	border: 2px solid #1D6154;
+	padding: 10px 30px;
+}
+
+ .btn-filtre.active {
+	font-family: 'Syne';
+	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
 	text-align: center;
-	border-radius: 60px ;
-	border-style: none;
+	border-radius: 60px;
 	padding: 10px 30px;
-}
+} 
 
 .gallery {
 	width: 100%;
