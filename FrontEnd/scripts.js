@@ -1,4 +1,8 @@
 function genererProjets(works) {
+  const sectionPortfolio = document.querySelector(".gallery"); // Sélectionne la galerie
+  sectionPortfolio.innerHTML = "";// Vide le contenu HTML
+
+
   for (const projet of works) {
 
     const sectionPortfolio = document.querySelector(".gallery");
@@ -18,7 +22,6 @@ function genererProjets(works) {
 
 const response = await fetch('http://localhost:5678/api/works');
 const works = await response.json();
-console.log(works);
 genererProjets(works);
 
 /*fetch('http://localhost:5678/api/works')
@@ -32,20 +35,16 @@ genererProjets(works);
 
 
 const boutonsFiltres = document.querySelectorAll(".btn-filtre");// Je sélectionne tous les éléments ayant la classe ".btn-filtre"
-console.log(boutonsFiltres);// Me renvoi une NodeList
 
 const tableauBoutonsFiltres = Array.from(boutonsFiltres);// Je convertis la NodeList en tableau
-console.log(tableauBoutonsFiltres);// Me renvoi bien les mêmes infos mais dans un tableau
 
 const categoriesIds = tableauBoutonsFiltres.map((bouton) => {// Grace à .map je parcours le tableau et pour chaque élément nommé ici "bouton"...
   return bouton.getAttribute("data-category-id");// ... je récupère le "data-category-id" grace à .getAttribute
 });
-console.log(categoriesIds);// Me renvoi un tableau avec uniquement les data-category-id
 
 boutonsFiltres.forEach((bouton) => {// Pour chaque bouton de boutonsFiltres
   bouton.addEventListener("click", () => { // Ajoute un événement au click
-    const categoryId = bouton.getAttribute("data-category-id"); // Récupère le data-category-id 
-    //console.log(categoryId);
+    const categoryId = bouton.getAttribute("data-category-id"); // Récupère le data-category-id
     filtrerProjetsParCategorie(categoryId, works);
     console.log(filtrerProjetsParCategorie);
 
