@@ -46,7 +46,6 @@ boutonsFiltres.forEach((bouton) => {// Pour chaque bouton de boutonsFiltres
   bouton.addEventListener("click", () => { // Ajoute un événement au click
     const categoryId = bouton.getAttribute("data-category-id"); // Récupère le data-category-id
     filtrerProjetsParCategorie(categoryId, works);
-    console.log(filtrerProjetsParCategorie);
 
     boutonsFiltres.forEach((btn) => {
       if (btn === bouton) {
@@ -68,9 +67,6 @@ function filtrerProjetsParCategorie(categoryId, works) {
   const projetsFiltres = works.filter((projet) => {
     return projet.categoryId === parseInt(categoryId);
   });
-
-  const sectionPortfolio = document.querySelector(".gallery");
-  sectionPortfolio.innerHTML = ""; // Vide la galerie
 
   // Appeler la fonction pour générer les projets filtrés
   genererProjets(projetsFiltres);
