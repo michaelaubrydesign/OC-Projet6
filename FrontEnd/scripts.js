@@ -63,12 +63,12 @@ function filtrerProjetsParCategorie(categoryId, works) {
     return;
   }
 
-  // Filtrer les projets en fonction de la catégorie
+  // Filtre les projets en fonction de la catégorie
   const projetsFiltres = works.filter((projet) => {
     return projet.categoryId === parseInt(categoryId);
   });
 
-  // Appeler la fonction pour générer les projets filtrés
+  // Appele la fonction pour générer les projets filtrés
   genererProjets(projetsFiltres);
 }
 
@@ -82,7 +82,7 @@ Mentorat :
 1. Récupérer les boutons de filtre (dans un tableau) - OK
 2. Sur chaque bouton rattacher à un eventListener - OK
 3. Récupérer le data-category-id associé au bouton - OK
-4. Filtrer/Créer un nouveau tableau contenant que les projets correspondants (méthode filter)
-5. Rappeler genererProjet avec le tableau filtré
+4. Filtrer/Créer un nouveau tableau contenant que les projets correspondants (méthode filter) - OK
+5. Rappeler genererProjet avec le tableau filtré - OK
 
 Penser à modifier la méthode genererProjet pour supprimer le contenu de gallery avant de régénérer le contenu*/
