@@ -208,6 +208,10 @@ a:hover {
 	color: #B1663C;
 }
 
+a.active {
+	font-weight: 700;
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -257,9 +261,10 @@ a:hover {
 	border-radius: 60px;
 	border: 2px solid #1D6154;
 	padding: 10px 30px;
+	cursor: pointer;
 }
 
-.active {
+.btn-filtre.active {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
@@ -338,6 +343,7 @@ input[type="submit"] {
 	width: 180px;
 	text-align: center;
 	border-radius: 60px;
+	cursor: pointer;
 }
 
 #login a {
