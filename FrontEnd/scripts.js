@@ -36,12 +36,6 @@ genererProjets(works);
 
 const boutonsFiltres = document.querySelectorAll(".btn-filtre");// Je sélectionne tous les éléments ayant la classe ".btn-filtre"
 
-const tableauBoutonsFiltres = Array.from(boutonsFiltres);// Je convertis la NodeList en tableau
-
-const categoriesIds = tableauBoutonsFiltres.map((bouton) => {// Grace à .map je parcours le tableau et pour chaque élément nommé ici "bouton"...
-  return bouton.getAttribute("data-category-id");// ... je récupère le "data-category-id" grace à .getAttribute
-});
-
 boutonsFiltres.forEach((bouton) => {// Pour chaque bouton de boutonsFiltres
   bouton.addEventListener("click", () => { // Ajoute un événement au click
     const categoryId = bouton.getAttribute("data-category-id"); // Récupère le data-category-id
@@ -85,4 +79,39 @@ Mentorat :
 4. Filtrer/Créer un nouveau tableau contenant que les projets correspondants (méthode filter) - OK
 5. Rappeler genererProjet avec le tableau filtré - OK
 
-Penser à modifier la méthode genererProjet pour supprimer le contenu de gallery avant de régénérer le contenu*/
+Penser à modifier la méthode genererProjet pour supprimer le contenu de gallery avant de régénérer le contenu
+
+
+
+Step 2.2
+
+1. Créer un eventlistener sur le bouton connecter (click)
+2. Récupérer la valeur du champ email (=> variable)
+3. Récupérer valeur mdp (=> variable)
+4. let body = {
+  email:
+  password:
+}
+5. Interroger l'api en répliquant la page fetch (adapter)
+5.5. Gestion des erreurs ( Mdp ou Identifiant invalide)
+6. Extraire result.token
+7. Stocker le token dans le localstorage
+8. Rediriger vers la page d'accueil
+
+9. Quand j'ai un token dans le local storage, je crée les boutons modifier (fonction au chargement de la page)
+
+
+!!!!! Pas de bandeau noir en haut de la maquette
+!!!!! Pas de bouton pour déplacer les projets dans la modale
+
+Step 3.1
+1. Créer eventListener sur les boutons modifier 
+2. Ouvre la modale qui affiche les projets
+3. Bouton supprimer projet + eventListener
+4. Récupérer l'attribut Id du projet
+5. Fetch method Delete
+6. Norme bearer token (autorization bearer token)
+7. Supprimer le projet dans la modale ET dans la galerie du site (tout ça sans refresh) (=> Modifier la variable globale)
+Rappeler genererProjet avec le nouveau tableau (sans le projet dernièrement supprimé)
+
+*/
