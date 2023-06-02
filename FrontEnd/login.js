@@ -1,74 +1,3 @@
-function genererProjets(works) {
-  const sectionPortfolio = document.querySelector(".gallery"); // Sélectionne la galerie
-  sectionPortfolio.innerHTML = "";// Vide le contenu HTML
-
-
-  for (const projet of works) {
-
-    const sectionPortfolio = document.querySelector(".gallery");
-    const projetElement = document.createElement("projet");
-    const imageProjet = document.createElement("img");
-    imageProjet.src = projet.imageUrl;
-    const nomProjet = document.createElement("figcaption");
-    nomProjet.innerText = projet.title;
-
-    sectionPortfolio.appendChild(projetElement);
-    projetElement.appendChild(imageProjet);
-    projetElement.appendChild(nomProjet);
-
-  }
-}
-
-
-const response = await fetch('http://localhost:5678/api/works');
-const works = await response.json();
-genererProjets(works);
-
-/*fetch('http://localhost:5678/api/works')
-  .then(response => {
-    response.json()
-      .then(works => {
-        console.log(works);
-        genererProjets(works)
-      })
-  })*/
-
-
-const boutonsFiltres = document.querySelectorAll(".btn-filtre");// Je sélectionne tous les éléments ayant la classe ".btn-filtre"
-
-boutonsFiltres.forEach((bouton) => {// Pour chaque bouton de boutonsFiltres
-  bouton.addEventListener("click", () => { // Ajoute un événement au click
-    const categoryId = bouton.getAttribute("data-category-id"); // Récupère le data-category-id
-    filtrerProjetsParCategorie(categoryId, works);
-
-    boutonsFiltres.forEach((btn) => {
-      if (btn === bouton) {
-        btn.classList.add("active");
-      } else {
-        btn.classList.remove("active");
-      }
-    });
-  });
-});
-
-function filtrerProjetsParCategorie(categoryId, works) {
-  if (categoryId === "0") {
-    genererProjets(works); // Affiche tous les projets
-    return;
-  }
-
-  // Filtre les projets en fonction de la catégorie
-  const projetsFiltres = works.filter((projet) => {
-    return projet.categoryId === parseInt(categoryId);
-  });
-
-  // Appele la fonction pour générer les projets filtrés
-  genererProjets(projetsFiltres);
-}
-
-
-
-
 document.addEventListener('DOMContentLoaded', () => { // Fonction gérant l'authentification ("DOMContentLoaded" sert à exécuter la fonction une fois que la page est chargée entièrement)
   const loginForm = document.querySelector('#login form'); // Sélectionne le formulaire de connexion
 
@@ -97,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => { // Fonction gérant l'auth
     .then(data => {
       if (data.token) { // Vérifie si la réponse contient un token
         localStorage.setItem('token', data.token); // Stock le token dans le local storage
-        window.location.href = 'http://127.0.0.1:5501/'; // Redirige vers l'URL souhaité  *** FAIL ***
+        window.location.href = 'index.html'; // Redirige vers l'URL souhaité  *** FAIL ***
       } else {
         alert('Identifiant ou mot de passe incorrect');
       }
