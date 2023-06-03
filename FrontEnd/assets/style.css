@@ -215,6 +215,7 @@ a.active {
 #introduction {
 	display: flex;
 	align-items: center;
+	margin-bottom: 120px;
 }
 
 #introduction figure {
@@ -239,9 +240,16 @@ a.active {
 	margin-bottom: 0.5em;
 }
 
-#portfolio h2 {
-	text-align: center;
-	margin-bottom: 1.5em;
+.portfolio-title {
+	display:flex;
+}
+.portfolio-title h2 {
+	margin-left: 42%;
+}
+
+.portfolio-title .btn-modify {
+	margin-left: 30px;
+	margin-top: 3px;
 }
 
 .filtres {
@@ -250,6 +258,7 @@ a.active {
 	justify-content: center;
 	gap: 15px;
 	margin-bottom: 60px;
+	padding-top: 50px;
 }
 
 .btn-filtre {
@@ -272,6 +281,28 @@ a.active {
 	text-align: center;
 	border-radius: 60px;
 	padding: 10px 30px;
+}
+
+.gallery.authenticated .btn-filtre-authenticated {
+	display: none;
+}
+
+.btn-modify {
+	font-family: 'Work Sans';
+	font-size: 14px;
+	font-weight: 400;
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+
+.profilepic {
+	margin-left: 50px;
+	margin-top: 12px;
+}
+
+.btn-modify i {
+	margin-right: 8px;
 }
 
 .gallery {
