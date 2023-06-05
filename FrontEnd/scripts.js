@@ -1,5 +1,6 @@
 function genererProjets(works) {
   const sectionPortfolio = document.querySelector(".gallery"); // Sélectionne la galerie
+  const sectionModal = document.querySelector(".modal-gallery");
   const boutonsFiltres = document.querySelectorAll(".btn-filtre");
 
   const token = localStorage.getItem("token"); // Récupère la valeur associé à la clé "token" du localStorage
@@ -11,8 +12,7 @@ function genererProjets(works) {
 
   for (const projet of works) {
 
-    const sectionPortfolio = document.querySelector(".gallery");
-    const projetElement = document.createElement("projet");
+    const projetElement = document.createElement("figure");
     const imageProjet = document.createElement("img");
     imageProjet.src = projet.imageUrl;
     const nomProjet = document.createElement("figcaption");
@@ -21,7 +21,24 @@ function genererProjets(works) {
     sectionPortfolio.appendChild(projetElement);
     projetElement.appendChild(imageProjet);
     projetElement.appendChild(nomProjet);
+  }
 
+  for (const projet of works) {
+
+    const projetElement = document.createElement("figure");
+    const imageProjet = document.createElement("img");
+    imageProjet.src = projet.imageUrl;
+
+    const supprimerProjet = document.createElement("div");
+    supprimerProjet.className = "delete-photo";
+
+    const nomProjet = document.createElement("figcaption");
+    nomProjet.innerText = "éditer";
+
+    sectionModal.appendChild(projetElement);
+    projetElement.appendChild(imageProjet);
+    projetElement.appendChild(nomProjet);
+    projetElement.appendChild(supprimerProjet)
   }
 
 
