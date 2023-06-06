@@ -130,6 +130,8 @@ const closeModal = function (e) {                 // Fonction pour fermer la mod
   modal.querySelector('.js-modal-close').removeEventListener('click', closeModal)
   modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
   modal = null                                    // Variable modal -> null : pas de modal ouverte
+
+  checkInputs()
 }
 
 const stopPropagation = function (e) {
@@ -139,3 +141,47 @@ const stopPropagation = function (e) {
 document.querySelectorAll('.js-modal').forEach(btn => {
   btn.addEventListener('click', openModal)
 })
+
+const checkInputs = function () {
+  const inputTitre = document.getElementById('inputTitre').value.trim()
+  const selectCategorie = document.getElementById('selectCategorie').value
+
+  const btnValider = document.getElementById('btnValider')
+
+  if (inputTitre === '' || selectCategorie === '0') {
+    btnValider.disabled = true
+    btnValider.classList.add('disabled');
+  } else {
+    btnValider.disabled = false
+    btnValider.classList.remove('disabled');
+  }
+}
+
+const handleBtnValiderClick = function (e) {
+  if (e.target.classList.contains('disabled')) {
+    e.preventDefault(); // Empêche l'action lorsque le bouton est désactivé
+  }
+}
+
+const openModalAjouterPhoto = function (e) {
+  e.preventDefault()
+  const target = document.querySelector(e.target.getAttribute('href'))
+  modal.style.display = 'none' // Ferme la première modal
+  target.style.display = null
+  modal = target
+  modal.addEventListener('click', closeModal)
+  modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
+  modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
+
+  checkInputs()
+
+  const inputTitre = modal.querySelector('#inputTitre')
+  const selectCategorie = modal.querySelector('#selectCategorie')
+  inputTitre.addEventListener('input', checkInputs)
+  selectCategorie.addEventListener('change', checkInputs)
+}
+
+document.querySelector('.js-modal2').addEventListener('click', openModalAjouterPhoto)
+document.getElementById('inputTitre').addEventListener('input', checkInputs);
+document.getElementById('selectCategorie').addEventListener('change', checkInputs);
+document.getElementById('btnValider').addEventListener('click', handleBtnValiderClick);

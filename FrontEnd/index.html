@@ -48,19 +48,50 @@
 		<section id="portfolio">
 			<div class="portfolio-title">
 				<h2>Mes Projets</h2>
-				<button class="btn-modify js-modal" href="#modal1"><i class="fa-regular fa-pen-to-square"></i>Modifier</button>
+				<button class="btn-modify js-modal" href="#modal1"><i
+						class="fa-regular fa-pen-to-square"></i>Modifier</button>
 			</div>
 
-			<aside id="modal1" class="modal" role="dialog" style= "display: none;">
+			<aside id="modal1" class="modal" role="dialog" style="display: none;">
 				<div class="modal-wrapper js-modal-stop">
 					<button class="modal-wrapper-close js-modal-close"><i class="fa-solid fa-xmark"></i></button>
-					<h3>Galerie photo</h3>
-					<div class="modal-gallery">
+					<div class="modal-content">
+						<h3>Galerie photo</h3>
+						<div class="modal-gallery">
+						</div>
+						<div class="separator">
+						</div>
+						<button class="btn js-modal2" href="#modalAjouterPhoto">Ajouter une photo</button>
+						<a href="#" class="delete-gallery">Supprimer la galerie</a>
 					</div>
-					<div class="separator">
+				</div>
+			</aside>
+
+			<aside id="modalAjouterPhoto" class="modal" role="dialog" style="display: none;">
+				<div class="modal-wrapper js-modal-stop">
+					<button class="modal-wrapper-close js-modal-close"><i class="fa-solid fa-xmark"></i></button>
+					<button class="modal-wrapper-back" href="#modal1"><i class="fa-solid fa-arrow-left"></i></button>
+					<div class="modal-content">
+						<h3>Ajout photo</h3>
+						<div class="areaInputPhoto">
+							<i class="fa-regular fa-image"></i>
+							<label for="inputPhoto" class="customButton">+ Ajouter photo</label>
+							<input type="file" id="inputPhoto" accept="image/*">
+							<span>jpg, png : 4mo max</span>
+						</div>
+						<label for="inputTitre">Titre</label>
+						<input type="text" id="inputTitre">
+						<label for="selectCategorie">Catégorie</label>
+						<select id="selectCategorie">
+							<option value="0"></option>
+							<option value="1">Objets</option>
+							<option value="2">Appartements</option>
+							<option value="3">Hôtels & restaurants</option>
+						</select>
+						<div class="separator">
+						</div>
+						<button id="btnValider" class="btn">Valider</button>
 					</div>
-					<button class="btn-ajouter">Ajouter une photo</button>
-					<a href="#" class="delete-gallery">Supprimer la galerie</a>
 				</div>
 			</aside>
 
