@@ -62,20 +62,20 @@ function genererProjets(works) {
 }
 
 // 
-const fetchWorks = async () => {
+/*const fetchWorks = async () => {
   const response = await fetch('http://localhost:5678/api/works');
   const works = await response.json();
   genererProjets(works);
 }
 
-fetchWorks();
+fetchWorks();*/
 
 
-/*const response = await fetch('http://localhost:5678/api/works');
+const response = await fetch('http://localhost:5678/api/works');
 const works = await response.json();
 genererProjets(works);
 
-fetch('http://localhost:5678/api/works')
+/*fetch('http://localhost:5678/api/works')
   .then(response => {
     response.json()
       .then(works => {
