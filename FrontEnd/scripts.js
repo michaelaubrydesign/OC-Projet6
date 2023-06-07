@@ -190,3 +190,17 @@ document.querySelector('.js-modal2').addEventListener('click', openModalAjouterP
 document.getElementById('inputTitre').addEventListener('input', checkInputs);
 document.getElementById('selectCategorie').addEventListener('change', checkInputs);
 document.getElementById('btnValider').addEventListener('click', handleBtnValiderClick);
+
+
+const form = document.getElementById('formAjout');
+
+form.addEventListener('#btnValider', function(e) {
+  e.preventDefault();
+
+  const newProjet = new FormData(form);
+
+  fetch('http://localhost:5678/api/works', {
+    method: "POST",
+    body: newProjet,
+  })
+})
