@@ -77,13 +77,13 @@
 						<div class="areaInputPhoto">
 							<i class="fa-regular fa-image"></i>
 							<label for="inputPhoto" class="customButton">+ Ajouter photo</label>
-							<input type="file" id="inputPhoto" accept="image/*">
+							<input type="file" id="inputPhoto" name="inputPhoto" accept="image/*">
 							<span>jpg, png : 4mo max</span>
 						</div>
 						<label for="inputTitre">Titre</label>
-						<input type="text" id="inputTitre">
+						<input type="text" id="inputTitre" name="inputTitre">
 						<label for="selectCategorie">Catégorie</label>
-						<select id="selectCategorie">
+						<select id="selectCategorie" name="selectCategorie">
 							<option value="0"></option>
 							<option value="1">Objets</option>
 							<option value="2">Appartements</option>
@@ -91,7 +91,7 @@
 						</select>
 						<div class="separator">
 						</div>
-						<button id="btnValider" class="btn">Valider</button>
+						<button id="btnValider" class="btn" type="submit">Valider</button>
 					</form>
 					</div>
 				</div>

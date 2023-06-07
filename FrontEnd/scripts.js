@@ -192,15 +192,24 @@ document.getElementById('selectCategorie').addEventListener('change', checkInput
 document.getElementById('btnValider').addEventListener('click', handleBtnValiderClick);
 
 
+
+// Suppression projet (voir authorisation bearer)
+
+
+
+// Ajout projet 
 const form = document.getElementById('formAjout');
 
-form.addEventListener('#btnValider', function(e) {
+form.addEventListener('submit', function(e) {
   e.preventDefault();
 
   const newProjet = new FormData(form);
-
-  fetch('http://localhost:5678/api/works', {
+  // Soit modifier le "name" des input en html pour correspondre à l'api soit je le construis moi-même (form.get...)
+  console.log(newProjet)
+  console.log(newProjet.get("inputPhoto"))
+  // Rajouter token pour le fetch
+  /*fetch('http://localhost:5678/api/works', {
     method: "POST",
     body: newProjet,
-  })
+  })*/
 })
