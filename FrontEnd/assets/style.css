@@ -418,6 +418,8 @@ footer nav ul {
 }
 
 .modal-content {
+	display: flex;
+	flex-direction: column;
 	padding-right: 70px;
 	padding-left: 70px;
 }
