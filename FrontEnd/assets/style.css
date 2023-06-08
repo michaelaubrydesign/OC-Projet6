@@ -476,7 +476,7 @@ footer nav ul {
 	left: 590px;
 	font-size: 24px;
 	height: 24px;
-	width: 24px;
+	width: 30px;
 	border: none;
 	background-color: #fff;
 	cursor: pointer;
@@ -487,7 +487,7 @@ footer nav ul {
 	right: 15px;
 	font-size: 24px;
 	height: 24px;
-	width: 24px;
+	padding-right:20px;
 	border: none;
 	background-color: #fff;
 	cursor: pointer;
@@ -527,6 +527,7 @@ footer nav ul {
 }
 
 .areaInputPhoto {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -550,6 +551,12 @@ footer nav ul {
 	right: 0;
 	opacity: 0;
 	cursor: disabled;
+}
+
+.preview-image {
+	position: absolute;
+	height: 100%;
+	top: 0;
 }
 
 

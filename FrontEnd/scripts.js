@@ -14,6 +14,9 @@ function genererProjets(works) {
     const projetElement = document.createElement("figure");
     const imageProjet = document.createElement("img");
     imageProjet.src = projet.imageUrl;
+
+    projetElement.setAttribute("data-project-id", projet.id);
+
     const nomProjet = document.createElement("figcaption");
     nomProjet.innerText = projet.title;
 
@@ -31,6 +34,7 @@ function genererProjets(works) {
 
     const supprimerProjet = document.createElement("div");
     supprimerProjet.className = "delete-photo";
+    supprimerProjet.setAttribute("data-project-id", projet.id);
 
     const nomProjet = document.createElement("figcaption");
     nomProjet.innerText = "éditer";
@@ -115,12 +119,18 @@ function filtrerProjetsParCategorie(categoryId, works) {
   genererProjets(projetsFiltres);
 }
 
+
+
+
+
 let modal = null;
+let previousModal = null;
 
 const openModal = function (e) {
   e.preventDefault();
   const target = document.querySelector(e.target.getAttribute('href'));
-  target.style.display = null;
+  target.style.display = 'block';
+  previousModal = modal;
   modal = target;
   modal.addEventListener('click', closeModal);
   modal.querySelector('.js-modal-close').addEventListener('click', closeModal);
@@ -130,11 +140,25 @@ const openModal = function (e) {
 const closeModal = function (e) {
   if (modal === null) return;
   e.preventDefault();
-  modal.style.display = "none";
+  modal.style.display = 'none';
   modal.removeEventListener('click', closeModal);
   modal.querySelector('.js-modal-close').removeEventListener('click', closeModal);
   modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation);
   modal = null;
+
+  const inputPhoto = document.getElementById('inputPhoto');
+  const inputTitre = document.getElementById('inputTitre');
+  const selectCategorie = document.getElementById('selectCategorie');
+
+  inputPhoto.value = '';
+  inputTitre.value = '';
+  selectCategorie.value = '0';
+
+  const areaInputPhoto = document.querySelector('.areaInputPhoto');
+  const existingPreview = areaInputPhoto.querySelector('.preview-image');
+  if (existingPreview) {
+    areaInputPhoto.removeChild(existingPreview);
+  }
 
   checkInputs();
 };
@@ -147,20 +171,60 @@ document.querySelectorAll('.js-modal').forEach(btn => {
   btn.addEventListener('click', openModal);
 });
 
+const backToPreviousModal = function (e) {
+  e.preventDefault();
+  const previousModalId = e.target.getAttribute('href');
+  const previousModal = document.querySelector(previousModalId);
+
+  if (previousModal && modal) {
+    modal.style.display = 'none';
+    previousModal.style.display = 'block';
+    modal.removeEventListener('click', closeModal);
+    modal.querySelector('.js-modal-close').removeEventListener('click', closeModal);
+    modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation);
+    modal = previousModal;
+    modal.addEventListener('click', closeModal);
+    modal.querySelector('.js-modal-close').addEventListener('click', closeModal);
+    modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation);
+  }
+};
+
+const backButton = document.getElementById('js-wrapper-back');
+backButton.addEventListener('click', backToPreviousModal);
+
+
+
+
+
+
+
 const checkInputs = function () {
+  const inputPhoto = document.getElementById('inputPhoto');
   const inputTitre = document.getElementById('inputTitre').value.trim();
   const selectCategorie = document.getElementById('selectCategorie').value;
 
   const btnValider = document.getElementById('btnValider');
 
-  if (inputTitre === '' || selectCategorie === '0') {
-    btnValider.disabled = true;
-    btnValider.classList.add('disabled');
-  } else {
+  const isInputPhotoValid = inputPhoto.files.length > 0;
+  const isInputTitreValid = inputTitre !== '';
+  const isSelectCategorieValid = selectCategorie !== '0';
+
+  const isFormValid = isInputPhotoValid && isInputTitreValid && isSelectCategorieValid;
+
+  btnValider.disabled = !isFormValid;
+  if (isFormValid) {
     btnValider.disabled = false;
     btnValider.classList.remove('disabled');
+  } else {
+    btnValider.disabled = true;
+    btnValider.classList.add('disabled');
   }
 };
+
+document.getElementById('inputPhoto').addEventListener('input', checkInputs);
+document.getElementById('inputTitre').addEventListener('input', checkInputs);
+document.getElementById('selectCategorie').addEventListener('input', checkInputs);
+
 
 const handleBtnValiderClick = function (e) {
   if (e.target.classList.contains('disabled')) {
@@ -191,12 +255,77 @@ document.getElementById('inputTitre').addEventListener('input', checkInputs);
 document.getElementById('selectCategorie').addEventListener('change', checkInputs);
 document.getElementById('btnValider').addEventListener('click', handleBtnValiderClick);
 
+//Preview photo ajoutée
+const inputPhoto = document.getElementById('inputPhoto');
+const areaInputPhoto = document.querySelector('.areaInputPhoto');
 
+inputPhoto.addEventListener('change', function () {
+  const file = inputPhoto.files[0];
+
+  if (file && file.type.startsWith('image/')) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      const imgPreview = document.createElement('img');
+      imgPreview.src = e.target.result;
+      imgPreview.classList.add('preview-image');
+
+      const existingPreview = areaInputPhoto.querySelector('.preview-image');
+      if (existingPreview) {
+        areaInputPhoto.removeChild(existingPreview);
+      }
+
+      areaInputPhoto.appendChild(imgPreview);
+    }
+
+    reader.readAsDataURL(file);
+  }
+})
 
 // Suppression projet (voir authorisation bearer)
 
+// Sélectionner tous les éléments déclencheurs pour la suppression de projet
+const deleteButtons = document.querySelectorAll('.delete-photo');
 
+deleteButtons.forEach((button) => {
+  button.addEventListener('click', (e) => {
+    e.preventDefault();
 
+    const projectId = button.getAttribute('data-project-id');
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      fetch(`http://localhost:5678/api/works/${projectId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          // Supprime le projet dans la modal
+          const projetElement = button.closest('figure');
+          projetElement.remove();
+
+          // Supprime le projet dans la galerie
+          const projetGalleryElement = document.querySelector(`.gallery.authenticated figure[data-project-id="${projectId}"]`);
+          if (projetGalleryElement) {
+            projetGalleryElement.remove();
+          }
+        } else {
+          console.error('Erreur lors de la suppression du projet');
+        }
+      })
+      .catch(error => {
+        console.error('Erreur lors de la suppression du projet', error);
+      });
+  } else {
+    console.error('Token non trouvé');
+  }
+});
+});
+
+/*
 // Ajout projet 
 const form = document.getElementById('formAjout');
 
@@ -211,5 +340,5 @@ form.addEventListener('submit', function(e) {
   /*fetch('http://localhost:5678/api/works', {
     method: "POST",
     body: newProjet,
-  })*/
-})
+  })
+})*/
