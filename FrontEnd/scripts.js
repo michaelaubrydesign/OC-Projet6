@@ -7,6 +7,7 @@ function genererProjets(works) {
   const authenticated = !!token;
 
   sectionPortfolio.innerHTML = "";
+  sectionModal.innerHTML = "";
 
 // Génère les projets dans la gallery
   for (const projet of works) {
@@ -283,9 +284,7 @@ inputPhoto.addEventListener('change', function () {
   }
 })
 
-// Suppression projet (voir authorisation bearer)
-
-// Sélectionner tous les éléments déclencheurs pour la suppression de projet
+// Suppression projet
 const deleteButtons = document.querySelectorAll('.delete-photo');
 
 deleteButtons.forEach((button) => {
