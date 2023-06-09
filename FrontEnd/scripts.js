@@ -339,8 +339,8 @@ formAjout.addEventListener('submit', (e) => {
 
   const formData = new FormData();
   formData.append('title', inputTitre.value);
-  formData.append('imageUrl', inputPhoto.files[0]);
-  formData.append('categoryId', selectCategorie.value);
+  formData.append('image', inputPhoto.files[0]);
+  formData.append('category', selectCategorie.value);
 
   const token = localStorage.getItem('token');
 
