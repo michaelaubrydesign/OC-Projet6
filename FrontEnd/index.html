@@ -68,15 +68,15 @@
 
 			<aside id="modalAjouterPhoto" class="modal" role="dialog" style="display: none;">
 				<div class="modal-wrapper js-modal-stop">
-					<button class="modal-wrapper-close js-modal-close"><i class="fa-solid fa-xmark"></i></button>
 					<button class="modal-wrapper-back" id="js-wrapper-back" href="#modal1"><i class="fa-solid fa-arrow-left"></i></button>
+					<button class="modal-wrapper-close js-modal-close"><i class="fa-solid fa-xmark"></i></button>
 					<div class="modal-content">
-						<form id="formAjout">
+						<form id="formAjout" action="/upload" method="post" enctype="multipart/form-data">
 						<h3>Ajout photo</h3>
 						<div class="areaInputPhoto">
 							<i class="fa-regular fa-image"></i>
 							<label for="inputPhoto" class="customButton">+ Ajouter photo</label>
-							<input type="file" id="inputPhoto" name="inputPhoto" accept="image/*">
+							<input type="file" id="inputPhoto" name="inputPhoto">
 							<span>jpg, png : 4mo max</span>
 						</div>
 						<label for="inputTitre">Titre</label>

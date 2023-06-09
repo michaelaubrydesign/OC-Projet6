@@ -173,7 +173,7 @@ document.querySelectorAll('.js-modal').forEach(btn => {
 
 const backToPreviousModal = function (e) {
   e.preventDefault();
-  const previousModalId = e.target.getAttribute('href');
+  const previousModalId = e.currentTarget.getAttribute('href');
   const previousModal = document.querySelector(previousModalId);
 
   if (previousModal && modal) {
@@ -189,7 +189,7 @@ const backToPreviousModal = function (e) {
   }
 };
 
-const backButton = document.getElementById('js-wrapper-back');
+const backButton = document.querySelector('.modal-wrapper-back');
 backButton.addEventListener('click', backToPreviousModal);
 
 
@@ -273,6 +273,7 @@ inputPhoto.addEventListener('change', function () {
       const existingPreview = areaInputPhoto.querySelector('.preview-image');
       if (existingPreview) {
         areaInputPhoto.removeChild(existingPreview);
+        areaInputPhoto.innerHTML = '';
       }
 
       areaInputPhoto.appendChild(imgPreview);
@@ -325,20 +326,47 @@ deleteButtons.forEach((button) => {
 });
 });
 
-/*
-// Ajout projet 
-const form = document.getElementById('formAjout');
 
-form.addEventListener('submit', function(e) {
+// Ajout projet 
+const formAjout = document.getElementById('formAjout');
+const sectionPortfolio = document.querySelector('.gallery');
+const sectionModal = document.querySelector('.modal-gallery');
+const inputTitre = document.getElementById('inputTitre');
+const selectCategorie = document.getElementById('selectCategorie');
+
+formAjout.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  const newProjet = new FormData(form);
-  // Soit modifier le "name" des input en html pour correspondre à l'api soit je le construis moi-même (form.get...)
-  console.log(newProjet)
-  console.log(newProjet.get("inputPhoto"))
-  // Rajouter token pour le fetch
-  /*fetch('http://localhost:5678/api/works', {
-    method: "POST",
-    body: newProjet,
-  })
-})*/
+  const formData = new FormData();
+  formData.append('title', inputTitre.value);
+  formData.append('imageUrl', inputPhoto.files[0]);
+  formData.append('categoryId', selectCategorie.value);
+
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    fetch('http://localhost:5678/api/works', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      body: formData
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Erreur lors de la création du projet');
+      }
+    })
+    .then(data => {
+      works.push(data);
+      genererProjets(works);
+    })
+    .catch(error => {
+      console.error('Erreur lors de la création du projet', error);
+    });
+  } else {
+    console.error('Token non trouvé');
+  }
+});

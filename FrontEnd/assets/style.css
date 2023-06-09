@@ -191,7 +191,7 @@ nav ul {
 }
 
 nav li {
-	padding: 0 10px;
+	padding: 0 40px;
 	font-size: 1.2em;
 }
 
@@ -445,7 +445,7 @@ footer nav ul {
 	height: 1px;
 	background-color: #B3B3B3;
 	margin: auto;
-	margin-top: 50px;
+	margin-top: 40px;
 }
 
 .modal-wrapper .btn {
@@ -484,13 +484,15 @@ footer nav ul {
 
 .modal-wrapper .modal-wrapper-back {
 	position: relative;
-	right: 15px;
 	font-size: 24px;
 	height: 24px;
-	padding-right:20px;
 	border: none;
 	background-color: #fff;
 	cursor: pointer;
+}
+
+#modalAjouterPhoto .modal-wrapper-close {
+	left:552px;
 }
 
 .modal-gallery {
@@ -535,8 +537,8 @@ footer nav ul {
 	border-radius: 3px;
 	margin-bottom: 30px;
 	padding: 30px;
-	position: relative;
 	overflow: hidden;
+	height: 180px;
 }
 
 .areaInputPhoto i {
@@ -585,5 +587,5 @@ footer nav ul {
 	border: none;
 	border-radius: 50px;
 	cursor: pointer;
-	color:#306685;
-  }
+	color: #306685;
+}
