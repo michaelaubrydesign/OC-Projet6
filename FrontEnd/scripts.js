@@ -246,12 +246,15 @@ document.getElementById('inputTitre').addEventListener('input', checkInputs);
 document.getElementById('selectCategorie').addEventListener('input', checkInputs);
 
 
+// Empêche l'action par défault sur les boutons contenant la classe disabled
 const handleBtnValiderClick = function (e) {
   if (e.target.classList.contains('disabled')) {
     e.preventDefault();
   }
 };
 
+
+// Ouvre la modale d'ajout de projet
 const openModalAjouterPhoto = function (e) {
   e.preventDefault();
   const target = document.querySelector(e.target.getAttribute('href'));
@@ -276,7 +279,7 @@ document.getElementById('selectCategorie').addEventListener('change', checkInput
 document.getElementById('btnValider').addEventListener('click', handleBtnValiderClick);
 
 
-//Preview photo ajoutée
+// Preview photo ajoutée
 const inputPhoto = document.getElementById('inputPhoto');
 const areaInputPhoto = document.querySelector('.areaInputPhoto');
 
