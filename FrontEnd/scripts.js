@@ -9,7 +9,7 @@ function genererProjets(works) {
   sectionPortfolio.innerHTML = "";
   sectionModal.innerHTML = "";
 
-// Génère les projets dans la gallery
+  // Génère les projets dans la gallery
   for (const projet of works) {
 
     const projetElement = document.createElement("figure");
@@ -46,7 +46,50 @@ function genererProjets(works) {
     projetElement.appendChild(supprimerProjet);
   }
 
-// Gère l'affichage des boutons filtres et modifier en fonction de authenticated
+  // Suppression projet
+  const deleteButtons = document.querySelectorAll('.delete-photo');
+
+  deleteButtons.forEach((button) => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const projectId = button.getAttribute('data-project-id');
+      const token = localStorage.getItem('token');
+
+      if (token) {
+        fetch(`http://localhost:5678/api/works/${projectId}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+          .then(response => {
+            if (response.ok) {
+              // Supprime le projet dans la modal
+              const projetElement = button.closest('figure');// Recherche l'élément HTML parent le plus proche du bouton
+              projetElement.remove();
+              works = works.filter((project) => project.id !== projectId);// Filtre works en ne gardant que les projets ne correspondant pas au projectId
+
+              // Supprime le projet dans la galerie
+              const projetGalleryElement = document.querySelector(`.gallery.authenticated figure[data-project-id="${projectId}"]`);
+              if (projetGalleryElement) {
+                projetGalleryElement.remove();
+              }
+            } else {
+              console.error('Erreur lors de la suppression du projet');
+            }
+          })
+          .catch(error => {
+            console.error('Erreur lors de la suppression du projet', error);
+          });
+      } else {
+        console.error('Token non trouvé');
+      }
+    });
+  });
+
+
+  // Gère l'affichage des boutons filtres et modifier en fonction de authenticated
   if (authenticated) {
     sectionPortfolio.classList.add("authenticated");
     boutonsFiltres.forEach((bouton) => {
@@ -66,28 +109,10 @@ function genererProjets(works) {
   }
 }
 
-// 
-/*const fetchWorks = async () => {
-  const response = await fetch('http://localhost:5678/api/works');
-  const works = await response.json();
-  genererProjets(works);
-}
-
-fetchWorks();*/
-
 
 const response = await fetch('http://localhost:5678/api/works');
 const works = await response.json();
 genererProjets(works);
-
-/*fetch('http://localhost:5678/api/works')
-  .then(response => {
-    response.json()
-      .then(works => {
-        console.log(works);
-        genererProjets(works)
-      })
-  })*/
 
 
 const boutonsFiltres = document.querySelectorAll(".btn-filtre");
@@ -119,9 +144,6 @@ function filtrerProjetsParCategorie(categoryId, works) {
 
   genererProjets(projetsFiltres);
 }
-
-
-
 
 
 let modal = null;
@@ -195,10 +217,7 @@ backButton.addEventListener('click', backToPreviousModal);
 
 
 
-
-
-
-
+// Vérifie le contenu des champs inputs pour activer le bouton Valider
 const checkInputs = function () {
   const inputPhoto = document.getElementById('inputPhoto');
   const inputTitre = document.getElementById('inputTitre').value.trim();
@@ -256,6 +275,7 @@ document.getElementById('inputTitre').addEventListener('input', checkInputs);
 document.getElementById('selectCategorie').addEventListener('change', checkInputs);
 document.getElementById('btnValider').addEventListener('click', handleBtnValiderClick);
 
+
 //Preview photo ajoutée
 const inputPhoto = document.getElementById('inputPhoto');
 const areaInputPhoto = document.querySelector('.areaInputPhoto');
@@ -284,57 +304,18 @@ inputPhoto.addEventListener('change', function () {
   }
 })
 
-// Suppression projet
-const deleteButtons = document.querySelectorAll('.delete-photo');
-
-deleteButtons.forEach((button) => {
-  button.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    const projectId = button.getAttribute('data-project-id');
-    const token = localStorage.getItem('token');
-
-    if (token) {
-      fetch(`http://localhost:5678/api/works/${projectId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
-      .then(response => {
-        if (response.ok) {
-          // Supprime le projet dans la modal
-          const projetElement = button.closest('figure');
-          projetElement.remove();
-
-          // Supprime le projet dans la galerie
-          const projetGalleryElement = document.querySelector(`.gallery.authenticated figure[data-project-id="${projectId}"]`);
-          if (projetGalleryElement) {
-            projetGalleryElement.remove();
-          }
-        } else {
-          console.error('Erreur lors de la suppression du projet');
-        }
-      })
-      .catch(error => {
-        console.error('Erreur lors de la suppression du projet', error);
-      });
-  } else {
-    console.error('Token non trouvé');
-  }
-});
-});
-
 
 // Ajout projet 
 const formAjout = document.getElementById('formAjout');
 const sectionPortfolio = document.querySelector('.gallery');
 const sectionModal = document.querySelector('.modal-gallery');
-const inputTitre = document.getElementById('inputTitre');
-const selectCategorie = document.getElementById('selectCategorie');
 
 formAjout.addEventListener('submit', (e) => {
   e.preventDefault();
+
+  const inputPhoto = document.getElementById('inputPhoto');
+  const inputTitre = document.getElementById('inputTitre');
+  const selectCategorie = document.getElementById('selectCategorie');
 
   const formData = new FormData();
   formData.append('title', inputTitre.value);
@@ -351,21 +332,23 @@ formAjout.addEventListener('submit', (e) => {
       },
       body: formData
     })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error('Erreur lors de la création du projet');
-      }
-    })
-    .then(data => {
-      works.push(data);
-      genererProjets(works);
-    })
-    .catch(error => {
-      console.error('Erreur lors de la création du projet', error);
-    });
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Erreur lors de la création du projet');
+        }
+      })
+      .then(data => {
+        works.push(data);
+        genererProjets(works);
+        closeModal(e);
+      })
+      .catch(error => {
+        console.error('Erreur lors de la création du projet', error);
+      });
   } else {
     console.error('Token non trouvé');
   }
 });
+
