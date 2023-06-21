@@ -250,7 +250,7 @@ a.active {
 
 .portfolio-title .btn-modify {
 	margin-left: 30px;
-	margin-top: 3px;
+	margin-top: 10px;
 }
 
 .filtres {
@@ -489,10 +489,11 @@ footer nav ul {
 	border: none;
 	background-color: #fff;
 	cursor: pointer;
+	margin-left:15px;
 }
 
 #modalAjouterPhoto .modal-wrapper-close {
-	left:552px;
+	left:549px;
 }
 
 .modal-gallery {

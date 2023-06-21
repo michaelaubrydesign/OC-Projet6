@@ -47,8 +47,8 @@
 		<section id="portfolio">
 			<div class="portfolio-title">
 				<h2>Mes Projets</h2>
-				<button class="btn-modify js-modal" href="#modal1"><i
-						class="fa-regular fa-pen-to-square"></i>Modifier</button>
+				<a class="btn-modify js-modal" href="#modal1"><i
+						class="fa-regular fa-pen-to-square"></i>Modifier</a>
 			</div>
 
 			<aside id="modal1" class="modal" style="display: none;">
@@ -60,7 +60,7 @@
 						</div>
 						<div class="separator">
 						</div>
-						<button class="btn js-modal2" href="#modalAjouterPhoto">Ajouter une photo</button>
+						<a class="btn js-modal2" href="#modalAjouterPhoto">Ajouter une photo</a>
 						<a href="#" class="delete-gallery">Supprimer la galerie</a>
 					</div>
 				</div>
@@ -68,7 +68,7 @@
 
 			<aside id="modalAjouterPhoto" class="modal" style="display: none;">
 				<div class="modal-wrapper js-modal-stop">
-					<button class="modal-wrapper-back" id="js-wrapper-back" href="#modal1"><i class="fa-solid fa-arrow-left"></i></button>
+					<a class="modal-wrapper-back" id="js-wrapper-back" href="#modal1"><i class="fa-solid fa-arrow-left"></i></a>
 					<button class="modal-wrapper-close js-modal-close"><i class="fa-solid fa-xmark"></i></button>
 					<div class="modal-content">
 						<form id="formAjout" action="/upload" method="post" enctype="multipart/form-data">
@@ -83,7 +83,7 @@
 						<input type="text" id="inputTitre" name="inputTitre">
 						<label for="selectCategorie">Catégorie</label>
 						<select id="selectCategorie" name="selectCategorie">
-							<option value="0"></option>
+							<option value="0">-</option>
 							<option value="1">Objets</option>
 							<option value="2">Appartements</option>
 							<option value="3">Hôtels & restaurants</option>
