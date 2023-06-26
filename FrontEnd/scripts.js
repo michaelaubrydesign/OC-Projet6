@@ -20,7 +20,7 @@ function genererProjets(works) {
     const imageProjet = document.createElement("img");
     imageProjet.src = projet.imageUrl;
 
-    // Définit un attribut "data-project-id" sur supprimerProjet pour stocker l'ID du projet
+    // Ajoute l'attribut "data-project-id" pour identifier chaque projet
     projetElement.setAttribute("data-project-id", projet.id);
 
     const nomProjet = document.createElement("figcaption");

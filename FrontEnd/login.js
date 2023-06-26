@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => { // Fonction gérant l'auth
     .then(data => {
       if (data.token) { // Vérifie si la réponse contient un token
         localStorage.setItem('token', data.token); // Stock le token dans le local storage
-        window.location.href = 'index.html'; // Redirige vers l'URL souhaité  *** FAIL ***
+        window.location.href = 'index.html'; // Redirige vers l'URL souhaité
       } else {
         alert('Identifiant ou mot de passe incorrect');
       }
