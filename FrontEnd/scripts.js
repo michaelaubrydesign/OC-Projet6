@@ -133,7 +133,7 @@ const boutonsFiltres = document.querySelectorAll(".btn-filtre");
 boutonsFiltres.forEach((bouton) => {
   bouton.addEventListener("click", () => {
     const categoryId = bouton.getAttribute("data-category-id"); // Récupère l'ID de catégorie à partir de l'attribut 'data-category-id' du bouton
-    filtrerProjetsParCategorie(categoryId, works); // Méthode filter des projets par catégorie en passant l'ID de catégorie et les données des projets
+    filtrerProjetsParCategorie(categoryId, works); // Appelle la fonction filtrerProjetsParCategorie pour filtrer les projets en fonction de la catégorie sélectionnée
 
     // Itère sur tous les boutons de filtre
     boutonsFiltres.forEach((btn) => {
