@@ -212,6 +212,37 @@ a.active {
 	font-weight: 700;
 }
 
+.editionMode {
+	position: fixed;
+	left:0;
+	right:0;
+	top:0;
+	z-index:999;
+	background-color: #000;
+	color: #fff;
+	display:flex;
+	flex-direction:row;
+	justify-content: center;
+	align-items: center;
+	height: 60px;
+	width:100vw;
+}
+
+.editionMode button {
+	color: black;
+	background-color: #fff;
+	text-align: center;
+	border-style: none;
+	border-radius: 60px;
+	cursor: pointer;
+	padding:12px 24px;
+	margin-left:20px;
+}
+
+.editionMode i {
+	margin-right:10px;
+}
+
 #introduction {
 	display: flex;
 	align-items: center;

@@ -60,9 +60,9 @@ function genererProjets(works) {
       e.preventDefault();
 
       // Récupère l'ID du projet à partir de l'attribut 'data-project-id' du bouton
-      const projectId = button.getAttribute('data-project-id'); 
+      const projectId = button.getAttribute('data-project-id');
       // Récupère le token d'authentification depuis le localStorage
-      const token = localStorage.getItem('token'); 
+      const token = localStorage.getItem('token');
 
       if (token) {
         fetch(`http://localhost:5678/api/works/${projectId}`, {
@@ -112,12 +112,29 @@ function genererProjets(works) {
     });
 
     const modifyButtons = document.querySelectorAll(".btn-modify"); // Sélectionne tous les boutons 'modifier'
+    const editionMode = document.querySelector(".editionMode");
 
     modifyButtons.forEach((button) => {
       button.style.display = "none"; // Masque tous les boutons 'modifier'
     });
+
+    if (authenticated) {
+      editionMode.style.display = "block"; // Affiche la div .editionMode
+    } else {
+      editionMode.style.display = "none"; // Masque la div .editionMode
+    }
   }
 }
+
+const editionModeButton = document.querySelector(".editionMode button");
+
+editionModeButton.addEventListener("click", function () {
+  // Supprimer le token du localStorage
+  localStorage.removeItem("token");
+
+  // Rafraîchir la page
+  window.location.reload();
+});
 
 // Requête GET pour récupérer les projets
 const response = await fetch('http://localhost:5678/api/works');
@@ -204,7 +221,7 @@ const closeModal = function (e) {
   }
 
   // Vérifie à nouveau les champs du formulaire
-  checkInputs(); 
+  checkInputs();
 };
 
 const stopPropagation = function (e) {
@@ -402,4 +419,3 @@ formAjout.addEventListener('submit', (e) => {
     console.error('Token non trouvé');
   }
 });
-
